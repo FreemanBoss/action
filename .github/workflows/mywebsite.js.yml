@@ -8,16 +8,24 @@ on:
 
 jobs:
   build:
-    runs_on: self-hosted
-  
-  steps:
-  - uses: actions/checkout@v4
-    name: use Node.js
-    uses: actions/setup-node@v4
-    with:
-      node version: ${{ matrix.node version }}
-    - run:
-      npm install
-      cd frontends
-      npm install
-      npm run build
+    runs-on: self-hosted
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '16.x'  # Replace '16.x' with the desired Node.js version
+
+    - name: Install dependencies
+      run: |
+        npm install
+        cd frontend
+        npm install
+    
+    - name: Build project
+      run: |
+        cd frontend
+        npm run build
