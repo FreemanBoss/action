@@ -11,21 +11,12 @@ jobs:
     runs-on: self-hosted
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20.16.0'  # Replace '16.x' with the desired Node.js version
-
-    - name: Install dependencies
-      run: |
-        npm install
-        cd frontend
-        npm install
-
-    - name: Build project
-      run: |
-        cd frontend
-        npm run build
+      - uses: actions/checkout@v4
+      - name: use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm install
+      - run: cd frontends
+      - run: npm install
+      - run: npm run build
